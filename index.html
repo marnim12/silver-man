@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Converter Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    .container {
+      width: 50%;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 40%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+        }
+    button:hover {
+      background-color: #3e8e41;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .history {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1> Converter Calculator</h1>
+    <input id="mm" type="number" placeholder="Millimeters">
+    <button onclick="convertMMtoCM()">MM to CM</button>
+    <br><br>
+    <input id="cm" type="number" placeholder="Centimeters">
+    <button onclick="convertCMtoMM()">CM to MM</button>
+    <br><br>
+    <button onclick="addValues()">Add Values</button>
+    <button onclick="clearFields()">Clear</button>
+    <div id="result"></div>
+    <div class="history" id="history"></div>
+  </div>
+
+  <script>
+    let historyText = '';
+
+    function convertMMtoCM() {
+      let mm = document.getElementById('mm').value;
+      let cm = mm / 10;
+      document.getElementById('result').innerHTML = mm + ' mm = ' + cm + ' cm';
+      updateHistory(mm + ' mm = ' + cm + ' cm');
+    }
+
+    function convertCMtoMM() {
+      let cm = document.getElementById('cm').value;
+      let mm = cm * 10;
+      document.getElementById('result').innerHTML = cm + ' cm = ' + mm + ' mm';
+      updateHistory(cm + ' cm = ' + mm + ' mm');
+    }
+    function addValues() {
+      let mm = parseFloat(document.getElementById('mm').value) || 0;
+      let cm = parseFloat(document.getElementById('cm').value) || 0;
+      let totalMM = mm + (cm * 10);
+      let totalCM = cm + (mm / 10);
+      document.getElementById('result').innerHTML = 'Total: ' + totalMM + ' mm or ' + totalCM + ' cm';
+      updateHistory('Added ' + mm + ' mm and ' + cm + ' cm = ' + totalMM + ' mm or ' + totalCM + ' cm');
+    }
+    function clearFields() {
+      document.getElementById('mm').value = '';
+      document.getElementById('cm').value = '';
+      document.getElementById('result').innerHTML = '';
+    }
+    function updateHistory(text) {
+      historyText += text + '<br>';
+      document.getElementById('history').innerHTML = historyText;
+    }
+  </script>
+</body>
+</html>
